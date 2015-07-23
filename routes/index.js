@@ -6,7 +6,17 @@ var quizController = require('../controllers/quiz_controller');
 
 // Página de entrada (home page)
 router.get('/', function(req, res) {
-	res.render('index', { title: 'Quiz' });
+	res.render('index', { title: 'Quiz', errors: [] });
+});
+
+
+/* GET créditos */
+router.get('/author', function(req, res) {
+	res.render('author', { 	profesor : 'Juan Quemada Vives',
+							alumno : 'Fco. Javier Ruiz García',
+							errors: []
+						}
+			);
 });
 
 
@@ -21,11 +31,6 @@ router.get('/quizes/:quizId(\\d+)/answer',	quizController.answer);
 router.get('/quizes/new',					quizController.new);
 router.post('/quizes/create',				quizController.create);
 
-
-/* GET créditos */
-router.get('/author', function(req, res) {
-	res.render('author', { profesor : 'Juan Quemada Vives', alumno : 'Fco. Javier Ruiz García' });
-});
 
 module.exports = router;
  
