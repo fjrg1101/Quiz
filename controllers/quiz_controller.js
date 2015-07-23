@@ -25,15 +25,6 @@ exports.index = function(req, res) {
 };
 
 
-// GET /quizes/new
-exports.new = function(req, res) {
-	var quiz = models.Quiz.build(		//crea objeto quiz
-		{pregunta: "Pregunta", respuesta: "Respuesta"}
-	);
-	res.render('quizes/new', { quiz: quiz, errors: [] });
-};
-
-
 // GET /quizes/:id
 exports.show = function(req, res) {
 	res.render('quizes/show', { quiz: req.quiz, errors: [] });
@@ -54,6 +45,15 @@ exports.answer = function(req, res) {
 }; 
 
 
+// GET /quizes/new
+exports.new = function(req, res) {
+	var quiz = models.Quiz.build(		//crea objeto quiz
+		{pregunta: "Pregunta", respuesta: "Respuesta"}
+	);
+	res.render('quizes/new', { quiz: quiz, errors: [] });
+};
+
+
 // POST /quizes/create
 exports.create = function(req, res) {
 	var quiz = models.Quiz.build( req.body.quiz );
@@ -68,10 +68,9 @@ exports.create = function(req, res) {
 	});
 }; 
 
-
 /**********************************************************************************************************
-// Solución aportada en el foro, válida para la versión de Sequelize@1.7.0   -sin comprobar
-// ( El desarrollo inicial funciona instalando Sequelize@2.0.0 [deprecated]  -comprobado y en uso )
+// Solución aportada en el foro, válida para la versión de sequelize@1.7.0	-sin comprobar
+// ( El desarrollo inicial funciona instalando sequelize@2.0.0-rc4			-comprobado )
 
 // POST /quizes/create
 exports.create = function(req, res){
@@ -89,3 +88,27 @@ exports.create = function(req, res){
 	}
 };
 ************************************************************************************************************/
+
+
+// GET /quizes/:id/edit
+exports.edit = function(req, res) {
+	var quiz = req.quiz;  // req.quiz: autoload de instancia de quiz
+	res.render('quizes/edit', {quiz: quiz, errors: []});
+};
+
+
+// PUT /quizes/:id
+exports.update = function(req, res) {
+	req.quiz.pregunta  = req.body.quiz.pregunta;
+	req.quiz.respuesta = req.body.quiz.respuesta;
+
+	req.quiz.validate().then(function(err){
+		if (err) {
+			res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+		} else {
+			// save: guarda campos pregunta y respuesta en DB
+			req.quiz.save( {fields: ["pregunta", "respuesta"]} )
+					.then( function(){ res.redirect('/quizes'); } );
+		}	// Redirección HTTP a lista de preguntas (URL relativo)
+	});
+}; 
