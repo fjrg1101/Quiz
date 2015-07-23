@@ -28,7 +28,7 @@ exports.index = function(req, res) {
 // GET /quizes/:id
 exports.show = function(req, res) {
 	res.render('quizes/show', { quiz: req.quiz, errors: [] });
-};
+};			// req.quiz: instancia de quiz cargada con autoload
 
 
 // GET /quizes/:id/answer
@@ -65,7 +65,7 @@ exports.create = function(req, res) {
 			quiz.save({fields: ["pregunta", "respuesta"]})
 				.then( function(){res.redirect('/quizes')} ) 
 		}	// res.redirect: Redirección HTTP (URL relativo) a lista de preguntas
-	});
+	}).catch(function(error){ next(error) });
 }; 
 
 /**********************************************************************************************************
@@ -110,5 +110,16 @@ exports.update = function(req, res) {
 			req.quiz.save( {fields: ["pregunta", "respuesta"]} )
 					.then( function(){ res.redirect('/quizes'); } );
 		}	// Redirección HTTP a lista de preguntas (URL relativo)
-	});
-}; 
+	}).catch(function(error){ next(error) });
+};
+
+
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+	req.quiz.destroy().then( function() {
+		res.redirect('/quizes');
+	}).catch(function(error){ next(error) });
+};
+
+
+//  console.log("req.quiz.id: " + req.quiz.id); 
