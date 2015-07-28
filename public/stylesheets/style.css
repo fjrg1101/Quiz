@@ -70,3 +70,35 @@ ul.fotos {
 	font-size 	: 11px;
 	font-family : Arial, sans-serif;
 }
+
+table {
+	width: 95%;
+}
+
+#buscar {
+	display: -webkit-flex;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 1em;
+	flex-wrap: wrap;
+}
+
+.botones {
+	margin-top: 1em;
+}
+
+.cabecera {
+	margin-bottom: 1em;
+}
+
+#preg, #resp {
+	width: 75%;
+}
+
+.texto {
+	min-width: 11em;
+}
+
+.titulo {
+	color: gray;
+} 

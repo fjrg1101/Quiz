@@ -1,12 +1,31 @@
-<form method="get" action="/quizes">
-	Texto a buscar
-	<input type="text" name="search" value=""/>
-	<input type="submit" value="Enviar"/>
+<form id="buscar" method="get" action="/quizes">
+	<div>
+		Texto<span class="elim"> a buscar</span>:
+		<input class="texto" type="text" name="search" value=""/>
+	</div>
+	<div>
+		Tema<span class="elim"> a buscar</span>:
+		<select class="texto" name="tema">
+			<option value="" selected></option>
+			<% include _temas.ejs %>
+		</select>
+	</div>
+	<input type="submit" value="Buscar"/>
 </form>
 
 <table>
-	<% var i; for (i=0; i < quizes.length; i++) { %>
-		<tr>
+	<thead>
+		<tr class="titulo">
+			<th>Tema</td>
+			<th>Pregunta</td>
+		</tr>
+	</thead>
+	<tbody>
+		<% var i; for (i=0; i < quizes.length; i++) { %>
+		<tr class="contenido">
+			<td>
+				<a href="quizes?tema=<%= quizes[i].tema %>"><%= quizes[i].tema %></a>
+			</td>
 			<td>
 				<a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
 			</td>
@@ -21,7 +40,8 @@
 				</form>
 			</td>
 		</tr>
-	<% } %>
+		<% } %>
+	</tbody>
 </table>
 
-<p><a href="/quizes/new"><button type="button">Crear pregunta</button></a> 
+<p class="botones"><a href="/quizes/new"><button type="button">Crear pregunta</button></a></p> 
