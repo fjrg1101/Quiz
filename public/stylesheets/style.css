@@ -75,6 +75,10 @@ table {
 	width: 95%;
 }
 
+a {
+	text-decoration: none;
+}
+
 #buscar {
 	display: -webkit-flex;
 	display: flex;

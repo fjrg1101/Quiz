@@ -11,6 +11,8 @@ nav {
 	width: 15%;
 	height: 100%;
 	min-height: 100px;
+	text-align: left;
+	line-height: 1.6em;
 }
 
 nav span {
@@ -27,4 +29,16 @@ section {
 footer {
 	clear: both;
 	display: block;
+}
+
+button, input {
+	padding: 2px;
+}
+
+table tr td button {
+	width: 100%;
+}
+
+table tr td {
+	border: solid 1px black;
 } 
