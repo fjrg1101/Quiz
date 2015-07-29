@@ -35,6 +35,28 @@ button, input {
 	padding: 2px;
 }
 
+.field {
+	text-align: left;
+	text-indent: 25%;
+	line-height: 2em;
+}
+
+.addquest {
+	text-align: left;
+	text-indent: 5%;
+	line-height: 2em;
+}
+
+#seltema {
+	min-width: 40%;
+}
+
+label {
+	width: 12%;
+	min-width: 5.2em;
+	float: left;
+}
+
 table tr td button {
 	width: 100%;
 }

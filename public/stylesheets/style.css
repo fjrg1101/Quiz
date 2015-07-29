@@ -46,6 +46,10 @@ nav span {
 	font-size: smaller;
 }
 
+.right {
+	float: right;
+} 
+
 ul.fotos {
 	margin-top 		: 1em;
 	margin-bottom 	: 1em;
@@ -96,7 +100,7 @@ a {
 }
 
 #preg, #resp {
-	width: 75%;
+	width: 70%;
 }
 
 .texto {
