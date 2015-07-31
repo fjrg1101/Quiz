@@ -1,7 +1,9 @@
-<p class="cabecera">Añadir comentario: </p>
-<form method="post" action="/quizes/<%=quizid%>/comments/" >      
-	<input type="text" id="comment" name="comment[texto]" value=""/>
+<p class="cabecera"><strong>Añadir comentario:</strong></p>
+<form method="post" action="/quizes/<%= quizid %>/comments/" >      
+	<input type="text" id="comment" name="comment[texto]" value="Nuevo comentario"
+		onfocus="if (this.value === 'Nuevo comentario') {this.value = '';}"/>
 	<p class="botones">
 		<button type="submit">Enviar</button>
+		<a href="/quizes/<%= quizid %>"><button type="button">Cancelar</button></a>
 	</p>
 </form>

@@ -17,11 +17,12 @@
 
 	<body>
 		<div id="page-wrap">
+
 			<header class="main" id="h1">
 				<%if(!session.user){%>
 					<span class="right"><a href="/login">Login</a></span>
 				<%}else{%>
-					<span class="right"> <%=session.user.username%> <a href="/logout">Logout</a></span>
+					<span class="right"> <%=session.user.username%> <a id="salgo" href="/logout">Logout</a></span>
 				<%}%>
 				<h2>Quiz<span>: El juego de las preguntas</span></h2>
 			</header>
@@ -34,12 +35,15 @@
 
 			<section class="main" id="s1">
 				<% if (errors.length) { %>
-					<span id='ErrorMsgs'>
-						Corregir errores:<br/>
+					<div id='ErrorMsgs'>
+						<p id="TitErr">Corregir errores:</p>
 						<% for (var i in errors) { %>
-							<span> <%= errors[i].message %> </span><br/>
+							<p class="ItemErr"> <%= errors[i].message %> </p>
 						<% } %>
-					</span>
+					</div>
+					<style>
+						#salgo { display: none; }
+					</style>
 				<% } %>
 				<div>
 					<%- body %>

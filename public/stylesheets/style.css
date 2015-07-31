@@ -44,6 +44,11 @@ nav span {
 #ErrorMsgs {
 	color: #f61;
 	font-size: smaller;
+	padding-bottom: 0px;
+}
+
+#TitErr {
+	margin-bottom: 5px;
 }
 
 .right {
@@ -81,6 +86,11 @@ table {
 
 a {
 	text-decoration: none;
+	color: blue;
+}
+
+a:hover {
+	color: green;
 }
 
 #buscar {
@@ -99,7 +109,7 @@ a {
 	margin-bottom: 1em;
 }
 
-#preg, #resp {
+#preg, #resp, #comment {
 	width: 70%;
 }
 
