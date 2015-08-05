@@ -16,18 +16,18 @@
 <table>
 	<thead>
 		<tr class="titulo">
-			<th>Tema</td>
 			<th>Pregunta</td>
+			<th>Tema</td>
 		</tr>
 	</thead>
 	<tbody>
 		<% var i; for (i=0; i < quizes.length; i++) { %>
 		<tr class="contenido">
 			<td>
-				<a href="quizes?tema=<%= quizes[i].tema %>"><%= quizes[i].tema %></a>
+				<a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
 			</td>
 			<td>
-				<a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
+				<a href="quizes?tema=<%= quizes[i].tema %>"><%= quizes[i].tema %></a>
 			</td>
 			<% if (session.user) { %>
 			<td>

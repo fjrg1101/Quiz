@@ -18,7 +18,11 @@ exports.load = function(req, res, next, commentId) {
 
 // GET /quizes/:quizId/comments/new
 exports.new = function(req, res) {
-	res.render('comments/new.ejs', {quizid: req.params.quizId, errors: []});
+	res.render('comments/new.ejs', {
+		quizid: req.params.quizId, 
+		quizpregunta: req.quiz.pregunta, 
+		errors: []
+	});
 };
 
 
@@ -54,7 +58,7 @@ exports.create = function(req, res){
 exports.create = function(req, res) {
 	var comment = models.Comment.build(	{
 		texto: req.body.comment.texto,          
-		QuizId: req.params.quizId
+		QuizId: req.params.quizId		// Crear objeto comment
 	} );
 
 	comment.validate().then(function(err){
@@ -67,7 +71,7 @@ exports.create = function(req, res) {
 		} else {
 			// save: guarda en DB campo texto de comment
 			comment.save().then( function() {
-				// res.redirect: Redirección HTTP a lista de preguntas
+				// res.redirect: Redirección HTTP a lista de preguntas:
 				res.redirect('/quizes/' + req.params.quizId)
 			} ) 
 		}
@@ -78,7 +82,32 @@ exports.create = function(req, res) {
 // GET /quizes/:quizId/comments/:commentId/publish
 exports.publish = function(req, res) {
 	req.comment.publicado = true;
-	req.comment.save( {fields: ["publicado"]} 
-		).then( function() { res.redirect('/quizes/'+req.params.quizId); } 
-			).catch(function(error){next(error)});
-}; 
+	req.comment.save( {fields: ["publicado"]} ).then(
+		function() { res.redirect('/quizes/' + req.params.quizId); } 
+	).catch(function(error) { next(error) });
+};
+
+
+// DELETE /quizes/:quizId/comments/:commentId
+exports.destroy = function(req, res) {
+	req.comment.destroy().then(
+		function() { res.redirect('/quizes/' + req.params.quizId); }
+	).catch( function(error){ next(error) });
+}; // Redirección HTTP (URL relativo) a la pregunta
+
+
+// GET /quizes/:quizId/comments/:commentId/edit
+exports.edit = function(req, res) {
+	var comment = req.comment; // autoload de instancia de comment
+	var quiz = req.quiz;        
+	res.render('comments/edit', {comment: comment, quiz: quiz, errors: []});
+};
+
+
+// PUT /quizes/:quizId/comments/:commentId/update
+exports.update = function(req, res) {
+	req.comment.texto = req.body.comment.texto;
+	req.comment.save( {fields: ["texto"]} ).then(
+		function() { res.redirect('/quizes/' + req.params.quizId); }
+	).catch(function(error){ next(error) });
+}; // Redirección HTTP (URL relativo) a la pregunta 

@@ -11,12 +11,13 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var app = express();
 
+app.use(partials());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(favicon(__dirname + '/public/estelaBarros.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -28,19 +29,30 @@ app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(partials());
-
 // Helpers dinamicos:
 app.use(function(req, res, next) {
+
+    // controla el tiempo de sesión sin refrescar
+    if (req.session.timer) {
+        var ahora = new Date().getTime();
+        var limite = 120000;    // 2 minutos (2* 60 * 1000 = 120000)
+        if ( ahora - req.session.timer > limite ) { 
+            delete req.session.timer;
+            res.redirect("/logout");
+        } else { 
+            req.session.timer = ahora;
+        }
+    };
+
     // guardar path en session.redir para despues de login
     if (!req.path.match(/\/login|\/logout/)) {
         req.session.redir = req.path;
     }
     // Hacer visible req.session en las vistas
     res.locals.session = req.session;
+
     next();
 });
-
 
 app.use('/', routes);
 

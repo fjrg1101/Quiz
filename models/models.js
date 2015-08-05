@@ -58,9 +58,21 @@ sequelize.sync().then(function() {
 						  respuesta: 'Roma',
 						  tema: 'Otro'
 						});
-			Quiz.create({ pregunta: 'Capital de Portugal',
-						  respuesta: 'Lisboa',
-						  tema: 'Otro'
+			Quiz.create({ pregunta: 'Pintor de la bóveda de la Capilla Sixtina del Vaticano',
+						  respuesta: 'Miguel Angel',
+						  tema: 'Humanidades'
+						});
+			Quiz.create({ pregunta: 'Juego de tablero con peones, caballos, torres, alfiles, dama y rey',
+						  respuesta: 'Ajedrez',
+						  tema: 'Ocio'
+						});
+			Quiz.create({ pregunta: 'Partícula del átomo que tiene carga negativa',
+						  respuesta: 'Electrón',
+						  tema: 'Ciencia'
+						});
+			Quiz.create({ pregunta: 'Medio de transmisión de pulsos de luz usado en telecomunicaciones',
+						  respuesta: 'Fibra óptica',
+						  tema: 'Tecnología'
 						})
 			.then(function(){console.log('Base de datos inicializada')});
 		};

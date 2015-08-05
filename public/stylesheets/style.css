@@ -120,3 +120,11 @@ a:hover {
 .titulo {
 	color: gray;
 } 
+
+.areatexto {
+	text-align: center;
+	font: 16px Georgia,serif;
+	color: green;
+	margin: 1px;
+	width: 99%;
+} 

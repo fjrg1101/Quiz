@@ -33,6 +33,7 @@ footer {
 
 button, input {
 	padding: 2px;
+	min-width: 60px;
 }
 
 .field {

@@ -1,0 +1,18 @@
+<p class="cabecera"><strong>Editar comentario:</strong></p>
+<form method="post" action="/quizes/<%= quiz.id %>/comments/<%= comment.id %>/update?_method=put">
+	<table>
+	<tr>
+		<td>Pregunta:</td>
+		<td><%= quiz.pregunta %></td>
+	</tr>	
+	<tr>
+		<td>Comentario:</td>
+		<td>
+			<textarea class="areatexto" name="comment[texto]" required="true"/><%= comment.texto %>
+			</textarea>
+		</td>
+	</tr>
+	</table>
+	<input type="submit" value="Guardar">
+	<a href="/quizes/<%= quiz.id %>"><button type="button">Cancelar</button></a>	
+</form> 
