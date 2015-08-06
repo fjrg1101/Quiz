@@ -1,3 +1,9 @@
+<table class="cabecera" style="color:gray;"> 
+	<tr>
+		<td>Pregunta:</td>
+		<td><%= quizpregunta %></td>
+	</tr>
+</table>
 <p class="cabecera"><strong>Añadir comentario:</strong></p>
 <form method="post" action="/quizes/<%= quizid %>/comments/" >      
 	<input type="text" id="comment" name="comment[texto]" value="Nuevo comentario"

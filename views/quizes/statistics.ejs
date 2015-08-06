@@ -1,0 +1,34 @@
+<%
+	var numComen = 0;
+	var numPregCon = 0;
+	var i; 
+	for (i=0; i < quizes.length; i++ ) { 
+		numComen += quizes[i].Comments.length;
+		numPregCon += quizes[i].Comments.length?1:0;
+	}
+	var mediaComen = numComen/quizes.length; 
+	var numPregSin = quizes.length - numPregCon;
+%>
+<h3 class="cabecera">Estadísticas</h3>
+<table>
+	<tr>
+		<td style="text-align:left;">- <span class="elim">Número total de</span> Preguntas:</td>
+		<td style="vertical-align:bottom;"><%= quizes.length %></td>
+	</tr>
+	<tr>
+		<td style="text-align:left;">- <span class="elim">Número total de</span> Comentarios:</td>
+		<td style="vertical-align:bottom;"><%= numComen %></td>
+	</tr>
+	<tr>
+		<td style="text-align:left;">- <span class="elim">Media de </span>Comentarios por Pregunta:</td>
+		<td style="vertical-align:bottom;"><%= mediaComen %></td>
+	</tr>
+	<tr>
+		<td style="text-align:left;">- <span class="elim">Número de</span> Preguntas sin Comentarios:</td>
+		<td style="vertical-align:bottom;"><%= numPregSin %></td>
+	</tr>
+	<tr>
+		<td style="text-align:left;">- <span class="elim">Número de</span> Preguntas con Comentarios:</td>
+		<td style="vertical-align:bottom;"><%= numPregCon %></td>
+	</tr>  
+</table> 

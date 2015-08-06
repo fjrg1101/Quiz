@@ -2,66 +2,38 @@ var models = require('../models/models.js');
 
 // Autoload :id de comentarios
 exports.load = function(req, res, next, commentId) {
-	models.Comment.find({
-		where: {
-			id: Number(commentId)
-		}
-	}).then(function(comment) {
+//	models.Comment.findById( commentId ).then(function(comment) {
+	models.Comment.find( {
+		where: { id: Number(commentId) }
+	} ).then(function(comment) {
 		if (comment) {
 			req.comment = comment;
 			next();
 		} else {
-			next(new Error('No existe commentId=' + commentId))
+			next(new Error('No existe commentId= ' + commentId))
 		}
-	}).catch(function(error){next(error)});
+	} ).catch(function(error) { next(error) });
 };
+
 
 // GET /quizes/:quizId/comments/new
 exports.new = function(req, res) {
 	res.render('comments/new.ejs', {
-		quizid: req.params.quizId, 
-		quizpregunta: req.quiz.pregunta, 
+		quizid: req.params.quizId,
+		quizpregunta: req.quiz.pregunta,
 		errors: []
 	});
 };
 
 
-/****************************************************************************************
-// Solución aportada en el foro, válida para la versión de sequelize@1.7.0	-sin comprobar
-
-// POST /quizes/:quizId/comments
-exports.create = function(req, res){
-	var comment = models.Comment.build( {	// Construccion objeto comment para lugego introducir en la tabla
-	 	texto: req.body.comment.texto,		// Texto que llega del formulario
-		QuizId: req.params.quizId			// Al comment se le pasa el quizId del quiz para establecer la integridad 
-											//         referencial entre Quiz y Comment. indice secundario de Comment
-		} );
-	var errors = comment.validate();		// Ya que el objeto errors no tiene .then()
-	if (errors) {
-		var i=0; 
-		var errores=new Array(); 			// Se convierte en [] con la propiedad message por compatibilidad con layout
-		for (var prop in errors)
-			errores[i++]={message: errors[prop]};        
-		res.render('comments/new.ejs', {comment: comment,
-										quizid: req.params.quizId,
-										errors: errores});
-	} else {
-		// save: guarda en DB campo texto de comment
-		comment.save().then( function(){ res.redirect('/quizes/'+req.params.quizId) } ) ;
-	}  //.catch(function(error){next(error)})
-};
-
-*****************************************************************************************/
-
-
 // POST /quizes/:quizId/comments
 exports.create = function(req, res) {
 	var comment = models.Comment.build(	{
-		texto: req.body.comment.texto,          
-		QuizId: req.params.quizId		// Crear objeto comment
+		texto:	req.body.comment.texto,
+		QuizId:	req.params.quizId		// Crear objeto comment
 	} );
 
-	comment.validate().then(function(err){
+	comment.validate().then(function(err) {
 		if (err) {
 			res.render('comments/new.ejs', {
 				comment: comment,
@@ -75,39 +47,43 @@ exports.create = function(req, res) {
 				res.redirect('/quizes/' + req.params.quizId)
 			} ) 
 		}
-	}).catch(function(error) { next(error) });
+	} ).catch(function(error) { next(error) });
 };
 
 
 // GET /quizes/:quizId/comments/:commentId/publish
 exports.publish = function(req, res) {
 	req.comment.publicado = true;
-	req.comment.save( {fields: ["publicado"]} ).then(
-		function() { res.redirect('/quizes/' + req.params.quizId); } 
-	).catch(function(error) { next(error) });
+	req.comment.save( {fields: ["publicado"]} ).then(function() {
+		res.redirect('/quizes/' + req.params.quizId);
+	} ).catch(function(error) { next(error) });
 };
 
 
 // DELETE /quizes/:quizId/comments/:commentId
 exports.destroy = function(req, res) {
-	req.comment.destroy().then(
-		function() { res.redirect('/quizes/' + req.params.quizId); }
-	).catch( function(error){ next(error) });
-}; // Redirección HTTP (URL relativo) a la pregunta
+	req.comment.destroy().then(function() {
+		res.redirect('/quizes/' + req.params.quizId);
+	} ).catch( function(error){ next(error) });
+};
 
 
 // GET /quizes/:quizId/comments/:commentId/edit
 exports.edit = function(req, res) {
-	var comment = req.comment; // autoload de instancia de comment
-	var quiz = req.quiz;        
-	res.render('comments/edit', {comment: comment, quiz: quiz, errors: []});
+	var comment = req.comment;
+	var quiz = req.quiz;
+	res.render('comments/edit', {
+		comment: comment,
+		quiz: quiz,
+		errors: []
+	} );
 };
 
 
 // PUT /quizes/:quizId/comments/:commentId/update
 exports.update = function(req, res) {
 	req.comment.texto = req.body.comment.texto;
-	req.comment.save( {fields: ["texto"]} ).then(
-		function() { res.redirect('/quizes/' + req.params.quizId); }
-	).catch(function(error){ next(error) });
-}; // Redirección HTTP (URL relativo) a la pregunta 
+	req.comment.save( {fields: ["texto"]} ).then(function() {
+		res.redirect('/quizes/' + req.params.quizId);
+	} ).catch(function(error){ next(error) });
+}; 

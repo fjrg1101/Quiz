@@ -29,6 +29,7 @@ app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // Helpers dinamicos:
 app.use(function(req, res, next) {
 
@@ -42,7 +43,7 @@ app.use(function(req, res, next) {
         } else { 
             req.session.timer = ahora;
         }
-    };
+    }
 
     // guardar path en session.redir para despues de login
     if (!req.path.match(/\/login|\/logout/)) {
@@ -53,6 +54,7 @@ app.use(function(req, res, next) {
 
     next();
 });
+
 
 app.use('/', routes);
 
