@@ -36,9 +36,13 @@ var Comment = sequelize.import(comment_path);
 
 
 // Relación entre las dos tablas  (se usan métodos predefinidos de sequelize)
-Comment.belongsTo(Quiz);	// cada comentario pertenece a una sola pregunta
-Quiz.hasMany(Comment);		// cada pregunta puede tener muchos comentarios
+//Comment.belongsTo(Quiz);	// cada comentario pertenece a una sola pregunta
+//Quiz.hasMany(Comment);		// cada pregunta puede tener muchos comentarios
 
+// Se modifica para tener en cuenta los borrados de comentarios:
+Comment.belongsTo(Quiz, { onDelete: 'cascade' });
+Quiz.hasMany(Comment, { onDelete: 'cascade' });
+//Quiz.hasMany(Comment, { 'constraints': true, 'onUpdate': 'cascade', 'onDelete': 'cascade', 'hooks': true });	
 
 exports.Quiz 	= Quiz;		// exportar tabla Quiz
 exports.Comment = Comment;	// exportar tabla Comment

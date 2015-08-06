@@ -12,41 +12,43 @@
 	</a>
 </p>
 <p class="botones">
-	<strong>Comentarios:</strong>
+	<strong>Comentarios<% if(session.user) { %> añadidos<% } else { %> publicados<% } %>:</strong>
 </p>
 
 
 <table>
-	<% for(i in quiz.Comments) { %>
+	<% for(index in quiz.Comments) { %>
 	<tr>
-		<% if(quiz.Comments[i].publicado || session.user) { %>
+		<% if(quiz.Comments[index].publicado || session.user) { %>
 		<td style="width:70%">
-			<p>- <%= quiz.Comments[i].texto %></p>
+			<p>[<%= +index+1 %>] - <%= quiz.Comments[index].texto %></p>
 		</td>
 		<% } %>
 
 		<% if(session.user) { %>
 		<td>
-			<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[i].id %>/edit">
+			<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/edit">
 				<button>Editar</button>
 			</a>
 		</td>
 		<td>
-			<form method="post" action="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[i].id %>?_method=delete">
-				<button type="submit" onClick="return confirm('¿Eliminar el comentario?');">
+			<form method="post" action="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>?_method=delete">
+				<button	type="submit"
+						onClick="return confirm('¿Eliminar el comentario: <%= quiz.Comments[index].texto %> ?');">
 					Eliminar
 				</button>
 			</form>
 		</td>
-		<% } %>
-
-		<% if(session.user && !quiz.Comments[i].publicado) { %>
 		<td>
-			<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[i].id %>/publish">
-				<button>Publicar</button>
+		<% if(!quiz.Comments[index].publicado) { %>
+			<a href="/quizes/<%= quiz.id %>/comments/<%= quiz.Comments[index].id %>/publish">
+				<button style="color:red;">Publicar</button>
 			</a>
+		<% } else { %>
+			¡Publicado!
+		<% } %>
 		</td>
-	<% } %>
+		<% } %>
 	</tr>
 	<% } %>
 </table> 

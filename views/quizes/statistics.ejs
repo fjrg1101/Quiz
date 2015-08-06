@@ -1,0 +1,33 @@
+<%
+	var numComen = 0;
+	var numPregCon = 0;
+	var i; 
+	for (i=0; i < quizes.length; i++ ) { 
+		numComen += quizes[i].Comments.length;
+		numPregCon += quizes[i].Comments.length?1:0;
+	}
+	var mediaComen = numComen/quizes.length; 
+	var numPregSin = quizes.length - numPregCon;
+%>   
+<table>
+	<tr>
+		<td>Número total de preguntas:</td>
+		<td><%= quizes.length %></td>
+	</tr>
+	<tr>
+		<td>Número total de comentarios:</td>
+		<td><%= numComen %></td>
+	</tr>
+	<tr>
+		<td>Media de comentarios por pregunta:</td>
+		<td><%= mediaComen %></td>
+	</tr>
+	<tr>
+		<td>Número de preguntas sin comentarios:</td>
+		<td><%= numPregSin %></td>
+	</tr>
+	<tr>
+		<td>Número de preguntas con comentarios:</td>
+		<td><%= numPregCon %></td>
+	</tr>  
+</table> 
