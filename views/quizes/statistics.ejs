@@ -8,27 +8,26 @@
 	}
 	var mediaComen = numComen/quizes.length; 
 	var numPregSin = quizes.length - numPregCon;
-%>
-<h3 class="cabecera">Estadísticas</h3>
+%>   
 <table>
 	<tr>
-		<td style="text-align:left;">- <span class="elim">Número total de</span> Preguntas:</td>
-		<td style="vertical-align:bottom;"><%= quizes.length %></td>
+		<td>Número total de preguntas:</td>
+		<td><%= quizes.length %></td>
 	</tr>
 	<tr>
-		<td style="text-align:left;">- <span class="elim">Número total de</span> Comentarios:</td>
-		<td style="vertical-align:bottom;"><%= numComen %></td>
+		<td>Número total de comentarios:</td>
+		<td><%= numComen %></td>
 	</tr>
 	<tr>
-		<td style="text-align:left;">- <span class="elim">Media de </span>Comentarios por Pregunta:</td>
-		<td style="vertical-align:bottom;"><%= mediaComen %></td>
+		<td>Media de comentarios por pregunta:</td>
+		<td><%= mediaComen %></td>
 	</tr>
 	<tr>
-		<td style="text-align:left;">- <span class="elim">Número de</span> Preguntas sin Comentarios:</td>
-		<td style="vertical-align:bottom;"><%= numPregSin %></td>
+		<td>Número de preguntas sin comentarios:</td>
+		<td><%= numPregSin %></td>
 	</tr>
 	<tr>
-		<td style="text-align:left;">- <span class="elim">Número de</span> Preguntas con Comentarios:</td>
-		<td style="vertical-align:bottom;"><%= numPregCon %></td>
+		<td>Número de preguntas con comentarios:</td>
+		<td><%= numPregCon %></td>
 	</tr>  
 </table> 
