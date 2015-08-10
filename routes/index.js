@@ -53,12 +53,9 @@ router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/edit',
 													sessionController.loginRequired, commentController.edit);
 router.put('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/update',
 													sessionController.loginRequired, commentController.update);
-//router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
-//													sessionController.loginRequired, commentController.publish);
-router.put('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
 													sessionController.loginRequired, commentController.publish);
 router.delete('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)',
 													sessionController.loginRequired, commentController.destroy);
 
-module.exports = router;
- 
+module.exports = router; 

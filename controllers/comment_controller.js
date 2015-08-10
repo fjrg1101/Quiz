@@ -38,6 +38,7 @@ exports.create = function(req, res) {
 			res.render('comments/new.ejs', {
 				comment: comment,
 				quizid: req.params.quizId,
+				quizpregunta: req.quiz.pregunta,
 				errors: err.errors
 			} );
 		} else {

@@ -11,24 +11,41 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var app = express();
 
-app.use(partials());
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(partials());
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/estelaBarros.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cookieParser());
 app.use(cookieParser('Quiz 2015'));
 app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
+//Control del tiempo de sesion para funcionar con Heroku  (del foro)
+app.use(function(req, res, next) {
+    if (req.session.user) {                 // si estamos en una sesion
+        if (!req.session.marcatiempo) {     // primera vez se pone la marca de tiempo
+            req.session.marcatiempo = (new Date()).getTime();
+        } else {
+            if ((new Date()).getTime() - req.session.marcatiempo > 120000) {
+                // se pasó el tiempo y eliminamos la sesión ( 2min=120000ms )
+                delete req.session.user;     // se elimina el usuario
+            } else {
+                // hay actividad se pone nueva marca de tiempo
+                req.session.marcatiempo=(new Date()).getTime();
+            }
+        }
+    }
+    next();
+});
+*/
 
 // Helpers dinamicos:
 app.use(function(req, res, next) {
@@ -39,7 +56,8 @@ app.use(function(req, res, next) {
         var limite = 120000;    // 2 minutos (2* 60 * 1000 = 120000)
         if ( ahora - req.session.timer > limite ) { 
             delete req.session.timer;
-            res.redirect("/logout");
+            delete req.session.user;
+            //res.redirect("/logout");
         } else { 
             req.session.timer = ahora;
         }
